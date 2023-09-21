@@ -1,0 +1,45 @@
+.bar {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 10px 5px 5px rgb(69, 68, 68);
+}
+
+.bar input[type="text"] {
+  display: inline;
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  width: 90%;
+}
+
+.result {
+  width: 100%;
+}
+
+.result ul {
+  display: none;
+  position: absolute;
+  float: left;
+  border: 1px solid black;
+  box-shadow: 10px 5px 5px rgb(69, 68, 68);
+  margin: 0;
+  padding: 1px;
+  background-color: whitesmoke;
+  width: 91%;
+}
+
+.result li {
+  list-style-type: none;
+  margin: 0;
+  padding: 3px;
+  border-bottom: 1px;
+}
+
+.result li:hover {
+  background-color: black;
+  color: white;
+}
