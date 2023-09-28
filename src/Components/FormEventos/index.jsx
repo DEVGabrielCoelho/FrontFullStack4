@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { IMaskInput } from "react-imask";
-import { dataBase, dataCity } from "../../Data/api";
+import { dataBase, dataBaseCity } from "../../Data/api";
 import SelectBox from "../SelectBox";
 
 export const FormEventos = (props) => {
@@ -148,10 +148,10 @@ export const FormEventos = (props) => {
           </Col>
           <Col className="md-3">
             <SelectBox
-              enderecoFonteDados={dataCity}
+              enderecoFonteDados={dataBaseCity}
               campoChave={"codigo"}
               campoExibicao={"cidade"}
-              funcaoSelecao={setCategoriaSelecionada}
+              funcaoSelecao={events.city_code}
             />
             <Form.Group as={Col} md="10">
               <Form.Label>Descrição</Form.Label>

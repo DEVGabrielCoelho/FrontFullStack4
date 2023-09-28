@@ -9,31 +9,11 @@ import { RiSearchLine } from "react-icons/ri";
 import { HiPencilAlt, HiPlus, HiTrash } from "react-icons/hi";
 import "./style.css";
 import { dataBase } from "../../Data/api";
-import { useEffect } from "react";
 
 export const TableEvent = (props) => {
-  // const filterEvents = (e) => {
-  //   const termSearch = e.currentTarget.value;
-  //   fetch(dataBase + "events", {
-  //     method: "GET",
-  //   })
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       if (Array.isArray(data)) {
-  //         const listEvent = data.filter((event) =>
-  //           event.title.toLowerCase().includes(termSearch.toLowerCase())
-  //         );
-  //         props.setListEvent(listEvent);
-  //       } else {
-  //         setErro(data);
-  //       }
-  //     });
-  // };
-
-  useEffect(() => {
-    fetch(dataBase + "events", {
+  const filterEvents = (e) => {
+    const termSearch = e.currentTarget.value;
+    fetch(dataBase + "events/simple", {
       method: "GET",
     })
       .then((response) => {
@@ -44,29 +24,33 @@ export const TableEvent = (props) => {
           const listEvent = data.filter((event) =>
             event.title.toLowerCase().includes(termSearch.toLowerCase())
           );
-          setListEvent(listEvent);
+          props.setListEvents(listEvent);
         } else {
           setErro(data);
         }
       });
-  }, []);
+  };
+
+  // useEffect(() => {
+  //   fetch(dataBase + "events/simple", {
+  //     method: "GET",
+  //   })
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       if (Array.isArray(data)) {
+  //         const listEvent = data.filter((event) =>
+  //           event.title.toLowerCase().includes(termSearch.toLowerCase())
+  //         );
+  //         setListEvent(listEvent);
+  //       } else {
+  //         setErro(data);
+  //       }
+  //     });
+  // }, []);
 
   // const [listEvent, setListEvent] = useState([]);
-  const [citySelect, setCitySelect] = useState({
-    codigo: 0,
-    cidade: "",
-  });
-
-  const [listEvent, setListEvent] = useState({
-    title: "",
-    setTime: "",
-    startDate: "",
-    endDate: "",
-    city_code: {
-      city: setCitySelect.cidade,
-    },
-    description: "",
-  });
 
   return (
     <>
@@ -102,14 +86,14 @@ export const TableEvent = (props) => {
             </tr>
           </thead>
           <tbody>
-            {listEvent?.map((e) => {
+            {props.listEvents?.map((e) => {
               return (
                 <tr className="text-center" key={e.title}>
                   <td>{e.title}</td>
                   <td>{e.setTime}</td>
                   <td>{e.startDate}</td>
                   <td>{e.endDate}</td>
-                  <td>{citySelect.cidade}</td>
+                  <td>{e.city_code}</td>
                   <td>{e.description}</td>
                   <td>
                     <div className="areaButtons">

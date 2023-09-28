@@ -16,6 +16,7 @@ function CadEventos() {
     setTime: "",
     startDate: "",
     endDate: "",
+    city_code: "",
     description: "",
   });
 
@@ -36,7 +37,7 @@ function CadEventos() {
   }
 
   useEffect(() => {
-    fetch(dataBase + "events", {
+    fetch(dataBase + "events/simple", {
       method: "GET",
     })
       .then((response) => {
@@ -70,8 +71,8 @@ function CadEventos() {
         <Container>
           {actionPage ? (
             <TableEvent
-              listEvent={listEvents}
-              setListEvent={setListEvents}
+              listEvents={listEvents}
+              setListEvents={setListEvents}
               alterPage={action}
               preEdit={preEdit}
               deletEvents={deletEvent}

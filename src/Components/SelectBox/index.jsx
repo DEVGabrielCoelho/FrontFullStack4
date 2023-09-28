@@ -1,80 +1,86 @@
 import { useEffect, useState } from "react";
 import { Container, Col, Form, Row, Spinner } from "react-bootstrap";
+import { dataBaseCity } from "../../Data/api";
 
 export default function SelectBox({
-  apiData,
-  campKey,
-  campView,
-  functionSelect,
+  campoChave,
+  campoExibicao,
+  funcaoSelecao,
 }) {
-  const [valorSelecionado, setValueSelect] = useState({
-    [campKey]: 0,
-    [campView]: "Não foi possível obter os dados do backend",
+  const [valorSelecionado, setValorSelecionado] = useState({
+    [campoChave]: 0,
+    [campoExibicao]: "Não foi possível obter os dados do backend",
   });
-  const [loadingData, setLoadingData] = useState(false);
-  const [data, setData] = useState([]);
+  const [carregandoDados, setCarregandoDados] = useState(false);
+  const [dados, setDados] = useState([]);
 
   useEffect(() => {
     try {
-      setLoadingData(true);
-      fetch(apiData, { method: "GET" })
+      setCarregandoDados(true);
+      fetch(dataBaseCity, { method: "GET" })
         .then((resposta) => {
           if (resposta.ok) {
+            //código 200
             return resposta.json();
           } else {
             return [
               {
-                [campKey]: 0,
-                [campView]: "Não foi possível obter os dados do backend",
+                [campoChave]: 0,
+                [campoExibicao]: "Não foi possível obter os dados do backend",
               },
             ];
           }
         })
-        .then((listData) => {
-          setLoadingData(false);
-          setData(listData);
-          if (listData.length > 0) {
-            setValueSelect(listData[0]);
-            functionSelect(listData[0]);
+        .then((listaDados) => {
+          setCarregandoDados(false);
+          setDados(listaDados);
+          //lembrar que a minha caixa de seleção possui um valor previamente selecionado
+          if (listaDados.length > 0) {
+            setValorSelecionado(listaDados[0]);
+            funcaoSelecao(listaDados[0]);
           }
         });
     } catch (erro) {
-      setLoadingData(false);
-      setData([
+      setCarregandoDados(false);
+      setDados([
         {
-          [campKey]: 0,
-          [campView]:
+          [campoChave]: 0,
+          [campoExibicao]:
             "Não foi possível obter os dados do backend: " + erro.message,
         },
       ]);
     }
-  }, []);
+  }, []); //willMount
 
   return (
-    <Container>
+    <Container border>
       <Row>
         <Col md={11}>
           <Form.Select
-            onChange={(e) => {
-              const itemSelecionado = e.currentTarget.value;
-              const pos = data
-                .map((item) => item[campKey].toString())
+            onChange={(evento) => {
+              const itemSelecionado = evento.currentTarget.value;
+              //ValorSelecionado e funcaoSelecao esperam objetos da lista
+              //gerando uma lista somente de ids, cpfs, codigo
+              const pos = dados
+                .map((item) => item[campoChave].toString())
                 .indexOf(itemSelecionado);
-              setValueSelect(data[pos]);
-              functionSelect(data[pos]);
+              setValorSelecionado(dados[pos]);
+              funcaoSelecao(dados[pos]);
             }}
           >
-            {data.map((item) => {
+            {dados.map((item) => {
               return (
-                <option key={item[campKey]} value={item[campKey]}>
-                  {item[campView]}
+                <option key={item[campoChave]} value={item[campoChave]}>
+                  {item[campoExibicao]}
                 </option>
               );
             })}
           </Form.Select>
         </Col>
         <Col md={1}>
-          <Spinner className={loadingData ? "visible" : "invisible"}></Spinner>
+          <Spinner
+            className={carregandoDados ? "visible" : "invisible"}
+          ></Spinner>
         </Col>
       </Row>
     </Container>
