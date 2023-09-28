@@ -34,59 +34,61 @@ export default function SearchBar({
   }
 
   return (
-    <Container>
-      <div className="bar">
-        <RiSearchLine />
-        <FormControl
-          type="text"
-          ref={inputSearch}
-          placeholder={placeHolder}
-          value={termSearch}
-          required
-          onChange={(e) => {
-            setTermSearch(e.target.value.toLocaleLowerCase());
-            filterResult();
-            if (!itemSelect) {
-              e.target.setAttribute("aria-invalid", true);
-              e.target.setCustomValidity("xxx");
-            } else {
-              e.target.removeAttribute("aria-invalid");
-              e.target.setCustomValidity("");
-            }
-          }}
-        />
-        <GrFormClose
-          onClick={() => {
-            setTermSearch("");
-            filterResult();
-            setItemSelect(false);
-            functionSelect({});
-            inputSearch.current.setAttribute("aria-invalid", true);
-            inputSearch.current.setCustomValidity("xxx");
-          }}
-        />
-      </div>
-      <div className="result">
-        <ul data-result>
-          {dataList.map((item) => {
-            return (
-              <li
-                key={item[campKey]}
-                onClick={() => {
-                  setTermSearch(item[campSearch]);
-                  setItemSelect(true);
-                  functionSelect(item);
-                  inputSearch.current.setCustomValidity("");
-                  document.querySelector("[data-result]").style.display =
-                    "none";
-                }}
-              >
-                {item[campSearch]}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </Container>
+    <>
+      <Container>
+        <div className="bar">
+          <RiSearchLine />
+          <FormControl
+            type="text"
+            ref={inputSearch}
+            placeholder={placeHolder}
+            value={termSearch}
+            required
+            onChange={(e) => {
+              setTermSearch(e.target.value.toLocaleLowerCase());
+              filterResult();
+              if (!itemSelect) {
+                e.target.setAttribute("aria-invalid", true);
+                e.target.setCustomValidity("xxx");
+              } else {
+                e.target.removeAttribute("aria-invalid");
+                e.target.setCustomValidity("");
+              }
+            }}
+          />
+          <GrFormClose
+            onClick={() => {
+              setTermSearch("");
+              filterResult();
+              setItemSelect(false);
+              functionSelect({});
+              inputSearch.current.setAttribute("aria-invalid", true);
+              inputSearch.current.setCustomValidity("xxx");
+            }}
+          />
+        </div>
+        <div className="result">
+          <ul data-result>
+            {dataList.map((item) => {
+              return (
+                <li
+                  key={item[campKey]}
+                  onClick={() => {
+                    setTermSearch(item[campSearch]);
+                    setItemSelect(true);
+                    functionSelect(item);
+                    inputSearch.current.setCustomValidity("");
+                    document.querySelector("[data-result]").style.display =
+                      "none";
+                  }}
+                >
+                  {item[campSearch]}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </Container>
+    </>
   );
 }

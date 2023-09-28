@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../../Components/SearchBar";
 import { dataBase, dataCity } from "../../Data/api.js";
 import SelectBox from "../../Components/SelectBox";
+import Header from "../../Components/Header";
 
 export const FiltroEvents = () => {
   const [listEvent, setListEvent] = useState([]);
@@ -23,21 +24,23 @@ export const FiltroEvents = () => {
   }, []);
 
   return (
-    <div>
+    <>
+      <Header />
       <SearchBar
         placeHolder={"Informe o Cidade"}
-        data={setListEvent}
-        campKey={"cidade"}
+        datas={listEvent} // Use datas em vez de data
+        campKey={"codigo"}
         campSearch={"cidade"}
         functionSelect={setSelectEvent}
         value={""}
       />
+
       <SelectBox
-        enderecoFonteDados={dataCity}
-        campoChave={"codigo"}
-        campoExibicao={"cidade"}
-        funcaoSelecao={() => {}}
+        apiData={listEvent}
+        campKey={"codigo"}
+        campView={"cidade"}
+        functionSelect={setCategoriaSelecionada}
       />
-    </div>
+    </>
   );
 };

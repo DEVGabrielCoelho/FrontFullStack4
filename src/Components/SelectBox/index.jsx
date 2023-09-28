@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Col, Form, Row, Spinner } from "react-bootstrap";
 
 export default function SelectBox({
-  enderecoFonteDados,
+  apiData,
   campKey,
   campView,
   functionSelect,
@@ -17,10 +17,9 @@ export default function SelectBox({
   useEffect(() => {
     try {
       setLoadingData(true);
-      fetch(enderecoFonteDados, { method: "GET" })
+      fetch(apiData, { method: "GET" })
         .then((resposta) => {
           if (resposta.ok) {
-            //código 200
             return resposta.json();
           } else {
             return [
@@ -49,10 +48,10 @@ export default function SelectBox({
         },
       ]);
     }
-  }, []); //willMount
+  }, []);
 
   return (
-    <Container border>
+    <Container>
       <Row>
         <Col md={11}>
           <Form.Select
