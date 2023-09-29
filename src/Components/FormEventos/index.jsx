@@ -148,7 +148,7 @@ export const FormEventos = (props) => {
           </Col>
           <Col className="md-3">
             <SelectBox
-              enderecoFonteDados={dataBaseCity}
+              dataBase={dataBaseCity}
               campoChave={"codigo"}
               campoExibicao={"cidade"}
               funcaoSelecao={events.city_code}
