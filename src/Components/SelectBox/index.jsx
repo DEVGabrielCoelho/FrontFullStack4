@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Container, Col, Form, Row, Spinner } from "react-bootstrap";
-import { dataBaseCity } from "../../Data/api";
 
 export default function SelectBox({
+  dataBase,
   campoChave,
   campoExibicao,
   funcaoSelecao,
@@ -17,7 +17,7 @@ export default function SelectBox({
   useEffect(() => {
     try {
       setCarregandoDados(true);
-      fetch(dataBaseCity, { method: "GET" })
+      fetch(dataBase, { method: "GET" })
         .then((resposta) => {
           if (resposta.ok) {
             //código 200
