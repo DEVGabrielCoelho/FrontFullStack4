@@ -73,7 +73,6 @@ export default function Header() {
                       Filtro Eventos
                     </NavLink>
                     <hr />
-                    <hr />
                     <NavLink id="navlink" to="/CadastroProduto">
                       Cadastro Produto
                     </NavLink>
