@@ -145,14 +145,16 @@ export const FormEventos = (props) => {
               </Form.Control.Feedback>
             </Form.Group>
             <br />
+            <Form.Group as={Col} md="10">
+              <SelectBox
+                dataBase={dataBaseCity}
+                campoChave={"codigo"}
+                campoExibicao={"cidade"}
+                funcaoSelecao={events.city_code}
+              />
+            </Form.Group>
           </Col>
           <Col className="md-3">
-            <SelectBox
-              dataBase={dataBaseCity}
-              campoChave={"codigo"}
-              campoExibicao={"cidade"}
-              funcaoSelecao={events.city_code}
-            />
             <Form.Group as={Col} md="10">
               <Form.Label>Descrição</Form.Label>
               <Form.Control

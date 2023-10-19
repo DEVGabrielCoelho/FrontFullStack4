@@ -53,9 +53,9 @@ export default function SelectBox({
   }, []); //willMount
 
   return (
-    <Container border>
+    <>
       <Row>
-        <Col md={11}>
+        <Col>
           <Form.Select
             onChange={(evento) => {
               const itemSelecionado = evento.currentTarget.value;
@@ -83,6 +83,6 @@ export default function SelectBox({
           ></Spinner>
         </Col>
       </Row>
-    </Container>
+    </>
   );
 }
